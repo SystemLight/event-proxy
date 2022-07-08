@@ -1,5 +1,5 @@
 {
-  "name": "event-proxy",
+  "name": "@systemlight/event-proxy",
   "version": "1.0.0",
   "scripts": {
     "lint:prettier": "prettier src/ -w",
