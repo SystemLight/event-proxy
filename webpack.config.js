@@ -859,4 +859,7 @@ class Webpack5RecommendConfig {
   }
 }
 
-module.exports = (env, argv) => new Webpack5RecommendConfig(env, argv).build().toConfig()
+module.exports = (env, argv) => Webpack5RecommendConfig
+  .newLibrary(env, argv)
+  .build()
+  .toConfig()

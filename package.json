@@ -1,35 +1,34 @@
 {
-  "name": "t-webpack5",
+  "name": "event-proxy",
   "version": "1.0.0",
   "scripts": {
     "lint:prettier": "prettier src/ -w",
-    "lint:stylelint-prettier-check": "stylelint-config-prettier-check",
-    "lint:stylelint": "stylelint src/**/*.{scss,css} --fix",
     "lint:eslint-check": "eslint src/ --ext .jsx,.js,ts,tsx",
     "lint:eslint": "eslint src/ --ext .jsx,.js,ts,tsx --fix",
-    "build:scss": "sass src/:dist/",
-    "build:postcss": "postcss dist/**/*.css -r",
     "build:tsc": "tsc -b",
     "build:babel": "babel src/ -d dist/ -s",
     "build:webpack": "webpack --mode production",
     "build:webpack-dev": "webpack --mode development",
-    "dev:serve": "webpack serve --mode development",
-    "dev:plop": "plop"
+    "dev:serve": "webpack serve --mode development"
   },
-  "keywords": [],
-  "description": "Front end development template based on webpack5.",
-  "main": "index.js",
+  "keywords": [
+    "on",
+    "event proxy",
+    "delegate"
+  ],
+  "description": "Event agent processing library.",
+  "main": "dist/main.bundle.js",
   "files": [],
   "bin": {},
   "author": "SystemLighht",
   "license": "MIT",
-  "homepage": "https://github.com/SystemLight/demo#readme",
+  "homepage": "https://github.com/SystemLight/event-proxy#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SystemLight/demo"
+    "url": "git+https://github.com/SystemLight/event-proxy"
   },
   "bugs": {
-    "url": "https://github.com/SystemLight/demo/issues"
+    "url": "https://github.com/SystemLight/event-proxy/issues"
   },
   "engines": {
     "node": ">=16.15.0"
@@ -45,29 +44,10 @@
     "@typescript-eslint/eslint-plugin": "^5.28.0",
     "@typescript-eslint/parser": "^5.28.0",
     "babel-loader": "^8.2.5",
-    "body-parser": "^1.20.0",
-    "chalk": "4.1.2",
-    "chokidar": "^3.5.3",
     "copy-webpack-plugin": "^11.0.0",
-    "css-loader": "^6.7.1",
     "eslint": "^8.17.0",
     "html-webpack-plugin": "^5.5.0",
-    "mini-css-extract-plugin": "^2.6.1",
-    "mockjs": "^1.1.0",
-    "plop": "^3.1.1",
-    "postcss": "^8.4.14",
-    "postcss-cli": "^9.1.0",
-    "postcss-preset-env": "^7.7.1",
     "prettier": "^2.7.0",
-    "sass": "^1.52.3",
-    "sass-loader": "^13.0.0",
-    "style-loader": "^3.3.1",
-    "stylelint": "^14.9.1",
-    "stylelint-config-css-modules": "^4.1.0",
-    "stylelint-config-idiomatic-order": "^8.1.0",
-    "stylelint-config-prettier-scss": "^0.0.1",
-    "stylelint-config-standard-scss": "^4.0.0",
-    "stylelint-declaration-block-no-ignored-properties": "^2.5.0",
     "terser-webpack-plugin": "^5.3.3",
     "thread-loader": "^3.0.4",
     "ts-loader": "^9.3.0",
@@ -79,7 +59,6 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.18.3",
-    "axios": "^0.27.2",
     "core-js": "^3.23.1"
   }
 }

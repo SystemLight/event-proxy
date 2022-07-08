@@ -166,7 +166,8 @@ class EslintRecommendConfig {
     if (this.isTsProject) {
       Object.assign(this.config.rules, {
         '@typescript-eslint/no-non-null-assertion': 'off',
-        '@typescript-eslint/no-var-requires': 'off'
+        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/no-this-alias': 'off'
       })
     }
     return this
