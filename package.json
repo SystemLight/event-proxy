@@ -18,7 +18,9 @@
   ],
   "description": "Event agent processing library.",
   "main": "dist/main.bundle.js",
-  "files": [],
+  "files": [
+    "dist/"
+  ],
   "bin": {},
   "author": "SystemLighht",
   "license": "MIT",
