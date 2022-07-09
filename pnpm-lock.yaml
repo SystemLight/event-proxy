@@ -6,14 +6,14 @@ specifiers:
   '@babel/eslint-parser': ^7.18.2
   '@babel/plugin-transform-runtime': ^7.18.5
   '@babel/preset-env': ^7.18.2
-  '@babel/runtime-corejs3': ^7.18.3
+  '@babel/runtime-corejs3': ^7.18.6
   '@commitlint/cli': ^17.0.2
   '@commitlint/config-conventional': ^17.0.2
   '@typescript-eslint/eslint-plugin': ^5.28.0
   '@typescript-eslint/parser': ^5.28.0
   babel-loader: ^8.2.5
   copy-webpack-plugin: ^11.0.0
-  core-js: ^3.23.1
+  core-js: ^3.23.3
   eslint: ^8.17.0
   html-webpack-plugin: ^5.5.0
   prettier: ^2.7.0
@@ -26,22 +26,20 @@ specifiers:
   webpack-dev-server: ^4.9.2
   webpackbar: ^5.0.2
 
-dependencies:
-  '@babel/runtime-corejs3': 7.18.6
-  core-js: 3.23.3
-
 devDependencies:
   '@babel/cli': 7.18.6_@babel+core@7.18.6
   '@babel/core': 7.18.6
   '@babel/eslint-parser': 7.18.2_ygqbvsyswrl2cmipz2mlfqys74
   '@babel/plugin-transform-runtime': 7.18.6_@babel+core@7.18.6
   '@babel/preset-env': 7.18.6_@babel+core@7.18.6
+  '@babel/runtime-corejs3': 7.18.6
   '@commitlint/cli': 17.0.3
   '@commitlint/config-conventional': 17.0.3
   '@typescript-eslint/eslint-plugin': 5.30.5_6zdoc3rn4mpiddqwhppni2mnnm
   '@typescript-eslint/parser': 5.30.5_4x5o4skxv6sl53vpwefgt23khm
   babel-loader: 8.2.5_fswvdo7jykdwhfxrdcvghfn6pa
   copy-webpack-plugin: 11.0.0_webpack@5.73.0
+  core-js: 3.23.3
   eslint: 8.19.0
   html-webpack-plugin: 5.5.0_webpack@5.73.0
   prettier: 2.7.1
@@ -1214,7 +1212,7 @@ packages:
     dependencies:
       core-js-pure: 3.23.3
       regenerator-runtime: 0.13.9
-    dev: false
+    dev: true
 
   /@babel/runtime/7.18.6:
     resolution: {integrity: sha512-t9wi7/AW6XtKahAe20Yw0/mMljKq0B1r2fPdvaAdV/KPDZewFXdaaa6K7lxmZBZ8FBNpCiAT6iHPmd6QO9bKfQ==}
@@ -2531,12 +2529,12 @@ packages:
   /core-js-pure/3.23.3:
     resolution: {integrity: sha512-XpoouuqIj4P+GWtdyV8ZO3/u4KftkeDVMfvp+308eGMhCrA3lVDSmAxO0c6GGOcmgVlaKDrgWVMo49h2ab/TDA==}
     requiresBuild: true
-    dev: false
+    dev: true
 
   /core-js/3.23.3:
     resolution: {integrity: sha512-oAKwkj9xcWNBAvGbT//WiCdOMpb9XQG92/Fe3ABFM/R16BsHgePG00mFOgKf7IsCtfj8tA1kHtf/VwErhriz5Q==}
     requiresBuild: true
-    dev: false
+    dev: true
 
   /core-util-is/1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -4334,6 +4332,7 @@ packages:
 
   /regenerator-runtime/0.13.9:
     resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
+    dev: true
 
   /regenerator-transform/0.15.0:
     resolution: {integrity: sha512-LsrGtPmbYg19bcPHwdtmXwbW+TqNvtY4riE3P83foeHRroMbH6/2ddFBfab3t7kbzc7v7p4wbkIecHImqt0QNg==}
