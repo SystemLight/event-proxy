@@ -19,40 +19,46 @@ MiddlewareNode.prototype.next = function (e, proxyThis) {
 /**
  * 事件代理对象
  * @param eventName - DOM事件
- * @param proxySelector - 代理事件的DOM节点选择器，不填或者null默认事件绑定到body
+ * @param {string | window | document} proxySelector - 代理事件的DOM节点选择器，不填或者null默认事件绑定到body
  * @param targetSelector - 触发事件的DOM节点的选择器
  * @constructor
  */
 function EventProxy(eventName, proxySelector, targetSelector) {
-  if (!targetSelector) {
-    targetSelector = proxySelector
-    proxySelector = null
-  }
-
   this.eventName = eventName
-  this.proxySelector = proxySelector
-  this.targetSelector = targetSelector
-
   this.headNode = new MiddlewareNode()
   this._nextNode = this.headNode
 
   let that = this
-  this._callback = function (e) {
-    let triggerDom = e.target
-    while (triggerDom !== this) {
-      if (triggerDom.matches(that.targetSelector)) {
-        e.proxyDom = this
-        e.triggerDom = triggerDom
-        that.headNode.next(e, that)
-      }
-      triggerDom = triggerDom.parentElement
+  if (proxySelector instanceof Window || proxySelector instanceof Document) {
+    this.proxySelector = proxySelector
+    this.targetSelector = targetSelector || null
+    this._eventTarget = this.proxySelector
+    this._callback = function (e) {
+      e.proxyDom = this
+      e.triggerDom = e.target
+      that.headNode.next(e, that)
     }
-  }
-
-  if (proxySelector) {
-    this._dom = document.querySelector(proxySelector)
   } else {
-    this._dom = document.body
+    if (targetSelector) {
+      this.proxySelector = proxySelector
+      this.targetSelector = targetSelector
+      this._eventTarget = document.querySelector(this.proxySelector)
+    } else {
+      this.proxySelector = null
+      this.targetSelector = proxySelector
+      this._eventTarget = document.body
+    }
+    this._callback = function (e) {
+      let triggerDom = e.target
+      while (triggerDom !== this) {
+        if (triggerDom.matches(that.targetSelector)) {
+          e.proxyDom = this
+          e.triggerDom = triggerDom
+          that.headNode.next(e, that)
+        }
+        triggerDom = triggerDom.parentElement
+      }
+    }
   }
 }
 
@@ -77,7 +83,7 @@ EventProxy.prototype.on = function (callback) {
     callback(e)
     next()
   })
-  this._dom.addEventListener(this.eventName, this._callback, true)
+  this._eventTarget.addEventListener(this.eventName, this._callback, true)
   return this
 }
 
@@ -94,7 +100,7 @@ EventProxy.prototype.one = function (callback) {
  * 结束监听事件
  */
 EventProxy.prototype.off = function () {
-  this._dom.removeEventListener(this.eventName, this._callback, true)
+  this._eventTarget.removeEventListener(this.eventName, this._callback, true)
 }
 
 /**
@@ -110,7 +116,7 @@ EventProxy.prototype.destroy = function () {
 /**
  *
  * @param {string} eventName
- * @param {String?} proxySelector
+ * @param {String | Window | Document} proxySelector
  * @param {String?} targetSelector
  * @return {EventProxy}
  */
