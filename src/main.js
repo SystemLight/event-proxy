@@ -3,30 +3,35 @@ function MiddlewareNode(callback) {
   this.callback = callback
 }
 
-MiddlewareNode.prototype.next = function (e) {
+MiddlewareNode.prototype.next = function (e, proxyThis) {
+  if (!proxyThis) {
+    proxyThis = this
+  }
   if (this.callback) {
     if (this.nextNode) {
-      this.callback(e, () => this.nextNode.next(e))
+      this.callback.call(proxyThis, e, () => this.nextNode.next(e))
     } else {
-      this.callback(e)
+      this.callback.call(proxyThis, e)
     }
   }
 }
 
 /**
  * 事件代理对象
- * @param event - DOM事件
+ * @param eventName - DOM事件
  * @param proxySelector - 代理事件的DOM节点选择器，不填或者null默认事件绑定到body
  * @param targetSelector - 触发事件的DOM节点的选择器
  * @constructor
  */
-function EventProxy(event, proxySelector, targetSelector) {
+function EventProxy(eventName, proxySelector, targetSelector) {
   if (!targetSelector) {
     targetSelector = proxySelector
     proxySelector = null
   }
 
-  this._event = event
+  this.eventName = eventName
+  this.proxySelector = proxySelector
+  this.targetSelector = targetSelector
 
   this.headNode = new MiddlewareNode()
   this._nextNode = this.headNode
@@ -35,10 +40,10 @@ function EventProxy(event, proxySelector, targetSelector) {
   this._callback = function (e) {
     let triggerDom = e.target
     while (triggerDom !== this) {
-      if (triggerDom.matches(targetSelector)) {
+      if (triggerDom.matches(that.targetSelector)) {
         e.proxyDom = this
         e.triggerDom = triggerDom
-        that.headNode.next(e)
+        that.headNode.next(e, that)
       }
       triggerDom = triggerDom.parentElement
     }
@@ -67,11 +72,12 @@ EventProxy.prototype.use = function (callback) {
  * @param callback - 事件触发回调函数
  */
 EventProxy.prototype.on = function (callback) {
+  this.off()
   this.use(function (e, next) {
     callback(e)
     next()
   })
-  this._dom.addEventListener(this._event, this._callback, true)
+  this._dom.addEventListener(this.eventName, this._callback, true)
   return this
 }
 
@@ -82,14 +88,13 @@ EventProxy.prototype.on = function (callback) {
 EventProxy.prototype.one = function (callback) {
   this.on(callback)
   this.use(() => this.off())
-  this._dom.addEventListener(this._event, this._callback)
 }
 
 /**
  * 结束监听事件
  */
 EventProxy.prototype.off = function () {
-  this._dom.removeEventListener(this._event, this._callback, true)
+  this._dom.removeEventListener(this.eventName, this._callback, true)
 }
 
 /**
@@ -102,6 +107,21 @@ EventProxy.prototype.destroy = function () {
   this._callback = null
 }
 
-export default function $e(event, proxySelector, targetSelector) {
-  return new EventProxy(event, proxySelector, targetSelector)
+/**
+ *
+ * @param {string} eventName
+ * @param {String?} proxySelector
+ * @param {String?} targetSelector
+ * @return {EventProxy}
+ */
+const $e = function (eventName, proxySelector, targetSelector) {
+  return new EventProxy(eventName, proxySelector, targetSelector)
 }
+
+$e.removeActiveMiddleware = function (e, next) {
+  document.querySelectorAll(this.targetSelector).forEach((el) => {
+    el.classList.remove('active')
+  })
+  next()
+}
+export default $e

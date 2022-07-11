@@ -1,5 +1,7 @@
 # event-proxy
 
+[![NPM version](https://img.shields.io/npm/v/@systemlight/event-proxy.svg)](https://www.npmjs.com/package/@systemlight/event-proxy)
+
 > Event agent processing library.
 
 ### Usage

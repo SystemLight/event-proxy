@@ -1,6 +1,6 @@
 {
   "name": "@systemlight/event-proxy",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scripts": {
     "lint:prettier": "prettier src/ -w",
     "lint:eslint-check": "eslint src/ --ext .jsx,.js,ts,tsx",
