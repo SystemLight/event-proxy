@@ -124,4 +124,38 @@ $e.removeActiveMiddleware = function (e, next) {
   })
   next()
 }
+
+/**
+ * 节流中间件
+ * @param delay
+ * @return {callback}
+ */
+$e.throttleMiddleware = function (delay = 500) {
+  let flags = true
+  return function (e, next) {
+    if (flags) {
+      flags = false
+      setTimeout(function () {
+        flags = true
+        next(e)
+      }, delay)
+    }
+  }
+}
+
+/**
+ * 防抖中间件
+ * @param delay
+ * @return {callback}
+ */
+$e.debounceMiddleware = function (delay = 500) {
+  let timer = null
+  return function (e, next) {
+    clearTimeout(timer)
+    timer = setTimeout(function () {
+      next(e)
+    }, delay)
+  }
+}
+
 export default $e
