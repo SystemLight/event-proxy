@@ -92,8 +92,12 @@ EventProxy.prototype.on = function (callback) {
  * @param callback
  */
 EventProxy.prototype.one = function (callback) {
-  this.on(callback)
-  this.use(() => this.off())
+  this
+    .on(callback)
+    .use((e, next) => {
+      this.off()
+      next()
+    })
 }
 
 /**
